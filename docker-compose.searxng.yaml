@@ -1,0 +1,40 @@
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    networks: [backend]
+    environment:
+      SEARXNG_BASE_URL: http://searxng:8080/
+      SEARXNG_SECRET: ${SEARXNG_SECRET_KEY:?set SEARXNG_SECRET_KEY in .env}
+    volumes:
+      - ${SEARXNG_SETTINGS_FILE:-./searxng/settings.yml}:/etc/searxng/settings.yml:ro
+      - searxng-cache:/var/cache/searxng
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=5)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  search-router:
+    image: python:3.13-alpine
+    restart: unless-stopped
+    networks: [backend]
+    volumes:
+      - ./searxng/search_router.py:/app/search_router.py:ro
+    command: ["python3", "/app/search_router.py"]
+    depends_on:
+      searxng:
+        condition: service_healthy
+
+  api:
+    environment:
+      SEARXNG_ENDPOINT: http://searxng:8080
+      FIRE_ENGINE_BETA_URL: http://search-router:8088
+    depends_on:
+      searxng:
+        condition: service_healthy
+      search-router:
+        condition: service_started
+
+volumes:
+  searxng-cache:
