@@ -37,7 +37,6 @@ import {
   FIRE_PDF_MAX_FILE_SIZE,
   MAX_FILE_SIZE,
   MILLISECONDS_PER_PAGE,
-  PDF_DOWNLOAD_MAX_FILE_SIZE,
 } from "./types";
 import type { PDFProcessorResult } from "./types";
 import {
@@ -61,6 +60,7 @@ import { toPublicBlocks } from "./blocks";
 import { captureExceptionWithZdrCheck } from "../../../../services/sentry";
 import { isPdfBuffer, PDF_SNIFF_WINDOW } from "./pdfUtils";
 import { comparePdfOutputs } from "./shadowComparison";
+import { PDF_DOWNLOAD_MAX_FILE_SIZE } from "./limits";
 import { withPdfExtractionPermit } from "./semaphore";
 
 /** Check if the PDF is eligible for Rust extraction, returning a rejection reason or null. */

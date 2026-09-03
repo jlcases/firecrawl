@@ -80,5 +80,4 @@ export const FIRE_PDF_INLINE_HARD_MAX_FILE_SIZE = 70 * 1024 * 1024; // 70MB
 export const FIRE_PDF_BY_REFERENCE_MAX_FILE_SIZE = 256 * 1024 * 1024; // 256MB
 /** Raw (non-parsed) PDF fetches return the file base64'd inline in the
  * response, so they keep a tighter cap than the parse path. */
-export const PDF_DOWNLOAD_MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 export const MILLISECONDS_PER_PAGE = 150;

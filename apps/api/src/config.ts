@@ -287,6 +287,12 @@ const configSchema = z.object({
   SCRAPE_MAX_FEATURE_TOGGLES: z.coerce.number().int().positive().default(3),
   SCRAPE_MAX_FEATURE_REMOVALS: z.coerce.number().int().positive().default(3),
   SCRAPE_MAX_PDF_PREFETCHES: z.coerce.number().int().positive().default(2),
+  PDF_DOWNLOAD_MAX_FILE_SIZE_MB: z.coerce
+    .number()
+    .int()
+    .min(50)
+    .max(512)
+    .default(50),
   SCRAPE_MAX_DOCUMENT_PREFETCHES: z.coerce.number().int().positive().default(2),
   // Max concurrent native PDF extractions per process. Each extraction holds
   // the (≤50MB) PDF plus its parsed text/markdown in memory on a tokio blocking
