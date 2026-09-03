@@ -32,8 +32,8 @@ import {
   byReferenceReachableForRequest,
   largePdfLimitBytes,
 } from "../pdf/fire-pdf/by-reference";
-import { PDF_DOWNLOAD_MAX_FILE_SIZE } from "../pdf/types";
 import { config } from "../../../../config";
+import { PDF_DOWNLOAD_MAX_FILE_SIZE } from "../pdf/limits";
 
 /** The handoff additionally requires the inbound allowlist bucket to be
  * configured: without it, a reference fire-engine returned could never be

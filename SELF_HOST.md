@@ -40,6 +40,12 @@ Get this baseline working before swapping backends or adding providers.
 The root `.env` overrides only variables referenced by `docker-compose.yaml`.
 Do not use `apps/api/.env.example` as a drop-in Compose contract.
 
+Large self-hosted PDFs can raise the download ceiling with
+`PDF_DOWNLOAD_MAX_FILE_SIZE_MB`. It defaults to 50 MB and accepts 50-512 MB.
+This ceiling controls download admission only; parser-specific thresholds still
+route large files away from memory-heavy inline processing. Size the value to
+the host and keep the API private to avoid unbounded public resource use.
+
 ## What the stack runs
 
 At this revision, Compose runs the Firecrawl API and workers, Playwright, Redis,
